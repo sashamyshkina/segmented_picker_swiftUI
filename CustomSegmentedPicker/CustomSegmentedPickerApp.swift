@@ -8,10 +8,17 @@
 import SwiftUI
 
 @main
-struct CustomSegmentedPickerApp: App {
+struct CustomPickerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            let dates = (0..<7).compactMap { Date().daysAdded($0) }
+
+            if let viewModel = PickerViewModel(allDates: dates) {
+                PickerView(viewModel: viewModel)
+                    .preferredColorScheme(.dark)
+            } else {
+                EmptyView()
+            }
         }
     }
 }
